@@ -1,0 +1,38 @@
+<% if @user.errors.any? 
+    @user.errors.full_messages.each do |message| %>
+        <div class="ErrorField">
+        <div class="alert alert-danger" role="alert">
+            <%=message%>
+        </div>
+        </div>
+    <%end%>
+<%end%>
+
+
+<%= form_for @user do |form| %>
+  <div class="RegistrationFields">
+    <%= form.label :email, 'Enter your email'  %>
+    <%= form.email_field :email, class: 'form-control' %>
+    <br>
+    <%= form.label :name, 'Enter your name'  %>
+    <%= form.text_field :name, class: 'form-control' %>
+    <br>
+    <%= form.label :password, 'Choose a password' %>
+    <%= form.password_field :password, class: 'form-control' %>
+    <br>
+    <%= form.label :password_confirmation, 'Repeat your password' %>
+    <%= form.password_field :password_confirmation, class: 'form-control' %>
+    <br>
+    <%= form.label :companyName, 'Enter your company name'  %>
+    <%= form.text_field :companyName, class: 'form-control' %>
+    <br>
+    <%= form.label :accountRole, 'I\'m an employer'  %>
+    <%= radio_button("user", "accountRole", "Employer")%>
+    <br>
+    <%= form.label :accountRole, 'I\'m an employee' %>
+    <%= radio_button("user", "accountRole", "Employee")%>
+    <br>
+    <br>
+    <%= form.submit 'Create an account!', class: 'btn btn-primary' %>
+</div>
+<% end %>

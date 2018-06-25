@@ -1,0 +1,17 @@
+<div>
+<%= form_for(:session, url: login_path) do |form| %>
+  <div class="RegistrationFields">
+    <%= form.label :email, 'Enter your email'  %>
+    <%= form.email_field :email, class: 'form-control' %>
+    <br>
+    <%= form.label :password, 'Choose a password' %>
+    <%= form.password_field :password, class: 'form-control' %>
+    <%= form.label :remember_me, class: "checkbox inline" do %>
+        <%= form.check_box :remember_me %>
+        <span>Remember me on this computer</span>
+      <% end %>
+    <br>
+    <%= form.submit 'Login', class: 'btn btn-primary' %>
+</div>
+<% end %>
+</div>

@@ -1,0 +1,2 @@
+class Lentele < ApplicationRecord
+end

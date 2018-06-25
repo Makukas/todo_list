@@ -1,0 +1,18 @@
+<div class="RegistrationFields">
+<%= form_for @list do |form| %>
+  
+      
+
+    <%= form.label :description, 'Task description'  %>
+    <%= form.text_field :description, class: 'form-control' %>
+    <br>
+    <%= form.label :deadline, 'Complete until' %>
+    <%= form.date_field :deadline, class: 'form-control' %>
+    <br>
+    <%= form.label :userID, 'Select the employee' %>
+    <%= select_tag 'list[userID]', options_for_select(User.all.where(:companyName => @current_user.companyName).collect{ |u| [u.name, u.id] })%>
+    <br>
+    <%= form.submit 'Create a task!', class: 'btn btn-primary' %>
+
+<% end %>
+</div>

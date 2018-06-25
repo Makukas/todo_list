@@ -1,0 +1,32 @@
+<% if logged_in? %>
+
+<h1>Edit task</h1> 
+
+<div class="RegistrationFields">
+
+<%= form_for @list do |form| %>
+  
+    <%= form.label :description, 'Task description'%>
+    <%= form.text_field :description, class: 'form-control' %>
+    <br>
+    <%= form.label :deadline, 'complete until' %>
+    <%= form.date_field :deadline, class: 'form-control' %>
+    <br>
+	<%= form.label :completion_status, 'is the task completed?' %>
+	<%=check_box 'list', 'completion_status', {}, 'Completed', 'Not completed' %>
+	<br>
+	<br>
+	<% # only employers can delete tasks %>
+		<% if @current_user.accountRole == 'Employer' %>
+			<%= form.label :completion_status, 'Delete this task?' %>
+			<% delete_link = '/delete/' + @list.id.to_s  %>
+			<%= link_to 'Delete this', delete_link %>
+		<%end%>
+	<br>
+	<br>
+
+    <%= form.submit 'Update a task!', class: 'btn btn-primary' %>
+
+<% end %>
+</div>
+<%end%>

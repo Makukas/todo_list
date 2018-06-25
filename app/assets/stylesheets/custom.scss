@@ -1,0 +1,58 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.navbar-inverse{
+  margin: -3px;
+  margin-bottom: 20px;
+}
+
+.RegistrationFields{
+border: 1px solid black;
+  margin:auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+.ErrorField{
+  margin:auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+    font-weight: bold;
+}
+
+th, td {
+padding: 15px;
+}
+
+tr.redbg{
+  background-color: #ff3333;
+}
+
+tr.yellowbg{
+  background-color: Orange;
+}
+
+tr.greenbg{
+    background-color: #4CAF50;
+}
+
+tr.bluebg{
+  background-color: DodgerBlue;
+}
+
+tr.criticalbg{
+  background-color: #000000;
+  color: #ffffff;
+}

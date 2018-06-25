@@ -1,0 +1,119 @@
+<% #checks if the user is logged in, if the user is logged in and an employer
+   #if yes, then it displays all tasks (need to change so only the company 
+   #task are shown). Shows only specific tasks for employees %>
+
+<% if logged_in? %>
+<h1>All tasks</h1>
+<% if @current_user.accountRole == 'Employer'%>
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Deadline</th>
+    <th>days left</th>
+    <th>Employee name</th>
+    <th>Finished?</th>
+    <th>Edit</th>
+  </tr>
+
+   <% @lists.each do |l| %>
+   <% @users.each do |u| %>
+   <% if (l.userID == u.id) && (u.companyName == @current_user.companyName) %>
+   <%
+   # looks at the date and chooses a class for the <tr> element to use
+    daysLeft = (l.deadline-Date.strptime(Date.today.to_s)).to_i
+    trbgcolor = "bluebg"
+    if daysLeft <= 20 || daysLeft > 20
+      trbgcolor = "greenbg"
+    end
+    if daysLeft <= 15 && daysLeft > 7
+      trbgcolor = "yellowbg"
+    end
+    if daysLeft <= 7 && daysLeft > 0
+      trbgcolor = "redbg"
+    end
+    if daysLeft < 0
+      trbgcolor = "criticalbg"
+    end
+    if l.completion_status == "Completed"
+      daysLeft = ''
+      trbgcolor = "bluebg"
+    end
+    %>
+
+  <tr class="<%=trbgcolor%>" >
+    <td><%= l.description %></td>
+    <td><%= l.deadline %></td>
+    <td><%= daysLeft %></td>
+    <td><%= if l.userID == u.id 
+      u.name
+      end%></td>
+    <td><%=l.completion_status%></td>
+    <% 
+    # creates a delete link with an id for param
+    #delete_link = '/delete/' + l.id.to_s 
+    # creates an edit link
+    edit_link ='/edit/' + l.id.to_s %>
+    <td><%=#link_to 'Delete this', delete_link 
+            link_to 'Edit', edit_link%></td>
+  </tr>
+  <% end %>
+  <% end %>
+  <% end %>
+</table>
+<% end %>
+<% if @current_user.accountRole == 'Employee' %>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Deadline</th>
+    <th>days left</th>
+    <th>Finished?</th>
+    <th>Edit</th>
+  </tr>
+
+   <% @lists.each do |l| %>
+   <% if l.userID == @current_user.id %>
+   <%
+   # looks at the date and chooses a class for the <tr> element to use
+    daysLeft = (l.deadline-Date.strptime(Date.today.to_s)).to_i
+    trbgcolor = "bluebg"
+    if daysLeft <= 20 || daysLeft > 20
+      trbgcolor = "greenbg"
+    end
+    if daysLeft <= 15 && daysLeft > 7
+      trbgcolor = "yellowbg"
+    end
+    if daysLeft <= 7 && daysLeft > 0
+      trbgcolor = "redbg"
+    end
+    if daysLeft < 0
+      trbgcolor = "criticalbg"
+    end
+    if l.completion_status == "Completed"
+      daysLeft = ''
+      trbgcolor = "bluebg"
+    end
+    %>
+
+  <tr class="<%=trbgcolor%>" >
+    <td><%= l.description %></td>
+    <td><%= l.deadline %></td>
+    <td><%= daysLeft %></td>
+    <td><%=l.completion_status%></td>
+    <% 
+    # creates a delete link with an id for param
+    #delete_link = '/delete/' + l.id.to_s 
+    # creates an edit link
+    edit_link ='/edit/' + l.id.to_s %>
+    <td><%=#link_to 'Delete this', delete_link 
+            link_to 'Edit', edit_link%></td>
+  </tr>
+  <% end %>
+  <% end %>
+</table>
+
+<%end%>
+<%else%>
+<h1>Please login to use this feature!</h1>
+<%end%>

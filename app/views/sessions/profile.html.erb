@@ -1,0 +1,11 @@
+<% if logged_in? %>
+<h1>Profile</h1>
+<br>
+<p>Name: <%= @current_user.name%></p>
+
+<p>Email: <%= @current_user.email%></p>
+
+<p>Company name: <%= @current_user.companyName%></p>
+
+<p>Employer/Employee: <%= @current_user.accountRole%></p>
+<%end%>

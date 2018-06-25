@@ -1,0 +1,7 @@
+<% if logged_in? && @current_user.accountRole == 'Employer' %>
+<h1>New task</h1> 
+
+<%= link_to 'All tasks', tasks_url %>
+
+<%= render 'form' %>
+<%end%>
