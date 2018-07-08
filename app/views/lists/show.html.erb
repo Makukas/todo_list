@@ -1,11 +1,11 @@
 <% #checks if the user is logged in, if the user is logged in and an employer
    #if yes, then it displays all tasks (need to change so only the company 
    #task are shown). Shows only specific tasks for employees %>
-
 <% if logged_in? %>
 <h1>All tasks</h1>
+<div id='tasksTable'>
 <% if @current_user.accountRole == 'Employer'%>
-<table>
+<table id='roundedCorners'>
   <tr>
     <th>Description</th>
     <th>Deadline</th>
@@ -16,7 +16,7 @@
   </tr>
 
    <% @lists.each do |l| %>
-   <% @users.each do |u| %>
+   <% @users.where(:companyName => @current_user.companyName).each do |u| %>
    <% if (l.userID == u.id) && (u.companyName == @current_user.companyName) %>
    <%
    # looks at the date and chooses a class for the <tr> element to use
@@ -117,3 +117,5 @@
 <%else%>
 <h1>Please login to use this feature!</h1>
 <%end%>
+
+</div>
