@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require sweetalert
 //= require bootstrap
 //= require rails-ujs
 //= require turbolinks
