@@ -1,24 +1,7 @@
-# README
+# TODO list
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This TODO list is designed to be used by several companies or groups at once.
+Employer simply creates a task for a worker from his company and then only that employee will be able to see the assigned task.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Created tasks are assigned colors depending on the remaining days until deadline.
+Tasks can only be created and deleted by employers, employees can only mark the tasks as completed.
