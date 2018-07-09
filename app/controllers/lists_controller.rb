@@ -14,6 +14,10 @@ class ListsController < ApplicationController
 		render 'show'
 	end
 
+	def calendar
+		render 'calendar'
+	end
+
 	def new
 		@list = List.new
 	end
