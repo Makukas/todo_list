@@ -36,6 +36,12 @@ table, th, td {
   font-weight: bold;
 }
 
+div.calendarMonth{
+  width: 100%;
+  text-align: center;
+  background: rgb(82.7%, 82.7%, 82.7%);
+}
+
 div#tasksTable{
   width: 100%;
   padding-left: 40px;
