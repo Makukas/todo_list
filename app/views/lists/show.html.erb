@@ -31,7 +31,7 @@
     if daysLeft <= 7 && daysLeft > 0
       trbgcolor = "redbg"
     end
-    if daysLeft < 0
+    if daysLeft <= 0
       trbgcolor = "criticalbg"
     end
     if l.completion_status == "Completed"
