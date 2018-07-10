@@ -1,6 +1,6 @@
 <% if logged_in? %>
 
-<h1>Calendar</h1>
+    <h1>Calendar</h1>
 
 <%  
     months = ["January", "February", "March", "April", "May", "June", "July",
@@ -14,10 +14,15 @@
     currentDay = Date.today.strftime("%d").to_i
     #figure out, which day is the first of the month (monday, tuesday....)
     #if day == 1 then its monday and so on
-    firstDay = currentDay - 2
+    firstDay = currentDay - 1
+    currentDay = Date.today.strftime("%w").to_i
     while firstDay > 7
       firstDay = firstDay - 7
     end
+    firstDay = currentDay - firstDay
+    array = [7,1,2,3,4,5,6]
+    firstDay = array[firstDay]
+    currentDay = Date.today.strftime("%d").to_i
 
     currentMonth = Date.today.strftime("%m").to_i
     #case to determine how many days the month has
@@ -39,52 +44,103 @@
       end
     end
 %>
-<div id="tasksTable">
-<div class="calendarMonth">
-<h1><%=months[currentMonth-1]%></h1>
-<h2><%=currentYear%></h2>
-</div>
-<table id="roundedCorners">
-  <tr>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
-    <th>Sunday</th>
-  </tr>
+    <div id="tasksTable">
+    <div class="calendarMonth">
+    <h1><%=months[currentMonth-1]%></h1>
+    <h2><%=currentYear%></h2>
+    </div>
+    <table id="roundedCorners">
+      <tr>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+      </tr>
 
-<tr>
+    <tr>
 <%  
     #this loop places empty <td> elements to correctly show the first day of the month
     while day < firstDay
       day = day + 1
-      dayCounter = dayCounter + 1
-%>
-<td> </td>
-<%end%>
+      dayCounter = dayCounter + 1%>
+      <td> </td>
+<%  end%>
 <%
-firstDay = 1
-#place the days in the table
-while firstDay <= currentMonthDays%>
-<% 
-#starts a new row if there's no active one
-if dayCounter == 1%>
-<tr>
-<%end%>
-<%#if there's 7 elements already in the row, it ends that row %>
-<% if dayCounter == 8%>
-</tr>
-<%dayCounter = 1%>
-<%end%>
-<td><%=firstDay%></td>
-<%firstDay = firstDay + 1
-dayCounter = dayCounter + 1%>
-<%end%>
-</tr>
-</div>
+    firstDay = 1
+    #place the days in the table
+    %>
+      <%
+      @ary = Array.new
+      i = 0
+      @lists.each do |l| 
+          @users.where(:companyName => @current_user.companyName).each do |u| 
+            if (l.userID == u.id) && (u.companyName == @current_user.companyName) 
+              daysLeft = (l.deadline-Date.strptime(Date.today.to_s)).to_i
+              currentDay = Date.today.strftime("%d").to_i
+              taskEndDay = currentDay + daysLeft
+              @ary[i] = taskEndDay
+              i = i + 1
+                #looks at the date and chooses a class for the <td> element to use
+                if daysLeft <= 20 || daysLeft > 20
+                  tdbgcolor = "greenbg"
+                end
+                if daysLeft <= 15 && daysLeft > 7
+                  tdbgcolor = "yellowbg"
+                end
+                if daysLeft <= 7 && daysLeft > 0
+                  tdbgcolor = "redbg"
+                end
+                if daysLeft <= 0
+                  tdbgcolor = "criticalbg"
+                end
+                @ary[i] = tdbgcolor
+                i = i + 1
+              end
+            end
+          end%>
 
-<%else%>
-<h1>Please login to use this feature!</h1>
-<%end%>
+          <%
+          i = 0
+          while firstDay <= currentMonthDays%>
+          <%puts currentDay%>
+<%        #starts a new row if there's no active one
+            if dayCounter == 1%>
+              <tr>
+      <%    end%>
+          <%#if there's 7 elements already in the row, it ends that row %>
+      <%    if dayCounter == 8%>
+              </tr>
+      <%      dayCounter = 1
+            end%>
+
+      <%    if @ary[i] == firstDay
+              i = i + 1%>
+              <%if currentDay == firstDay%>
+                <td id="CurrentDay" class="<%=@ary[i]%>"><%=firstDay%></td>
+              <%else%>
+                <td class="<%=@ary[i]%>"><%=firstDay%></td>
+              <%end%>
+      <%      firstDay = firstDay + 1
+              i = i + 1
+              dayCounter = dayCounter + 1
+            else%>
+            <%if currentDay == firstDay%>
+                <td id="CurrentDay"%><%=firstDay%></td>
+              <%else%>
+                <td><%=firstDay%></td>
+              <%end%>
+
+              <%firstDay = firstDay + 1
+              dayCounter = dayCounter + 1
+            end
+          %>
+      <%end%>
+    </tr>
+    </div>
+<%@tdbgcolor = "" %>
+    <%else%>
+    <h1>Please login to use this feature!</h1>
+    <%end%>
