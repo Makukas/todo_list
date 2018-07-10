@@ -15,7 +15,9 @@ class ListsController < ApplicationController
 	end
 
 	def calendar
-		render 'calendar'
+		@users = User.all
+		@lists = List.all
+		@lists = List.order("deadline ASC")
 	end
 
 	def new
