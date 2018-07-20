@@ -52,7 +52,7 @@ div#tasksTable{
 }
 
 table#roundedCorners {
-  border-radius: 25px;
+  table-layout: fixed;
   width: 100%;
 }
 
@@ -137,3 +137,4 @@ td.criticalbg{
 td#CurrentDay{
   border: 3px solid rgb(255, 238, 0);
 }
+
