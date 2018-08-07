@@ -23,7 +23,6 @@
     array = [7,1,2,3,4,5,6]
     firstDay = array[firstDay]
     currentDay = Date.today.strftime("%d").to_i
-
     currentMonth = Date.today.strftime("%m").to_i
     #case to determine how many days the month has
     case currentMonth 
@@ -81,6 +80,9 @@
               daysLeft = (l.deadline-Date.strptime(Date.today.to_s)).to_i
               currentDay = Date.today.strftime("%d").to_i
               taskEndDay = currentDay + daysLeft
+              if taskEndDay < 1
+                next
+              end
               @ary[i] = taskEndDay
               i = i + 1
                 #looks at the date and chooses a class for the <td> element to use
@@ -106,6 +108,7 @@
           i = 0
           while firstDay <= currentMonthDays%>
 <%        #starts a new row if there's no active one
+puts @ary[i]
             if dayCounter == 1%>
               <tr>
       <%    end%>
