@@ -76,7 +76,7 @@
       i = 0
       @lists.each do |l| 
           @users.where(:companyName => @current_user.companyName).each do |u| 
-            if (l.userID == u.id) && (u.companyName == @current_user.companyName) 
+            if (l.userID == u.id) && (u.companyName == @current_user.companyName) && (l.completion_status == 'Not completed')
               daysLeft = (l.deadline-Date.strptime(Date.today.to_s)).to_i
               currentDay = Date.today.strftime("%d").to_i
               taskEndDay = currentDay + daysLeft
@@ -108,7 +108,6 @@
           i = 0
           while firstDay <= currentMonthDays%>
 <%        #starts a new row if there's no active one
-puts @ary[i]
             if dayCounter == 1%>
               <tr>
       <%    end%>
